@@ -2,13 +2,12 @@ using System;
 
 public class Activity
 {
-    public string _name;
-    public string _description;
-    public int _duration;
+    protected string _name;
+    protected string _description;
+    protected int _duration;
     
     public Activity()
     {
-
         
     }
     public void DisplayStartingMessage()
