@@ -4,8 +4,8 @@ public abstract class Goal
 {
     protected string _shortName;
     protected string _description;
-    protected string _points;
-    public Goal(string name, string description, string points)
+    protected int _points;
+    public Goal(string name, string description, int points)
     {
         _shortName = name;
         _description = description;
@@ -13,7 +13,7 @@ public abstract class Goal
     }
     public int GetPoints()
     {
-        return int.Parse(_points);
+        return _points;
     }
 
     public abstract void RecordEvent();

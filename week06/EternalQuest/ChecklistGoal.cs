@@ -4,11 +4,11 @@ public class CheckListGoal : Goal
     private int _amountCompleted;
     private int _target;
     private int _bonus;
-    public CheckListGoal(string name, string description, string points, int target, int bonus) : base (name, description, points)
+    public CheckListGoal(string name, string description, int points, int target, int bonus, int amountCompleted) : base (name, description, points)
     {
-        target = _target;
-        bonus = _bonus;
-        _amountCompleted = 0;
+        _target = target;
+        _bonus = bonus;
+        _amountCompleted = amountCompleted;
         
     }
     public override void RecordEvent()

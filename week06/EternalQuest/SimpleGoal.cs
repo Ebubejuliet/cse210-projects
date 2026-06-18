@@ -2,7 +2,7 @@ using System;
 public class SimpleGoal : Goal
 {
     private bool _IsComplete;
-    public SimpleGoal(string name, string description, string points) : base (name, description, points)
+    public SimpleGoal(string name, string description, int points) : base (name, description, points)
     {
         
     }

@@ -71,7 +71,7 @@ public class GoalManager
         Console.WriteLine("What is a short description of it?");
         string description = Console.ReadLine();
         Console.WriteLine("How many points is it worth?");
-        string points = Console.ReadLine();
+        int points = int.Parse(Console.ReadLine());
         if (choice == 1)
         {
             _goals.Add(new SimpleGoal(name, description, points));
@@ -86,7 +86,7 @@ public class GoalManager
             int target = int.Parse(Console.ReadLine());
             Console.WriteLine("What is the bonus for accomplishing it that many times?");
             int bonus = int.Parse(Console.ReadLine());
-            _goals.Add(new CheckListGoal(name, description, points, target, bonus));
+            _goals.Add(new CheckListGoal(name, description, points, target, bonus, 0));
         }
         
     }
@@ -134,26 +134,39 @@ public class GoalManager
             string[] parts = lines[i].Split(":");
             string type = parts[0];
             string[] attributes = parts[1].Split(",");
+            for (int j = 0; j< attributes.Length; j++)
+            {
+                attributes[j] = attributes[j].Trim();
+            }
             if (type == "SimpleGoal")
             {
-                SimpleGoal g = new SimpleGoal(attributes[0].Trim(), attributes[1].Trim(), attributes[2].Trim());
-                if (bool.Parse(attributes[3])) g.RecordEvent();
-                _goals.Add(g);
+                string name = attributes[0];
+                string description = attributes[1];
+                int points = int.Parse(attributes[2]);
+                _goals.Add(new SimpleGoal(name, description, points));
+                Console.WriteLine($"Loaded SimpleGoal: {name}, {description}, {points}");
             }
             else if (type == "EternalGoal")
             {
-                _goals.Add(new EternalGoal(attributes[0], attributes[1].Trim(), attributes[2].Trim()));
+                string name = attributes[0];
+                string description = attributes[1];
+                int points = int.Parse(attributes[2]);
+                _goals.Add(new EternalGoal(name, description, points));
+                Console.WriteLine($"Loaded EternalGoal: {name}, {description}, {points}");
+
             }
             else if (type == "CheckListGoal")
             {
-                CheckListGoal goals = new CheckListGoal(attributes[0].Trim(), attributes[1].Trim(), attributes[2].Trim(), int.Parse(attributes[3].Trim()), int.Parse(attributes[4].Trim()));
-                int amountCompleted = int.Parse(attributes[5].Trim());
-                for (int j = 0; j < amountCompleted; j++)                {
-                    goals.RecordEvent();
-                    _goals.Add(goals);
+                string name = attributes[0];
+                string description = attributes[1];
+                int points = int.Parse(attributes[2]);
+                int bonus = int.Parse(attributes[3]);
+                int target = int.Parse(attributes[4]);
+                int amountCompleted = int.Parse(attributes[5]);
+                _goals.Add(new CheckListGoal(name, description, points, target, bonus, amountCompleted));
 
-
-                }
+                Console.WriteLine($"Loaded checklist goal '{name}' with {amountCompleted}/{target} completed.");
+      
             }
         }
         
